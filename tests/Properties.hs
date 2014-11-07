@@ -58,7 +58,7 @@ encodeInteger i = encode i == L.pack (show i)
 toParseJSON :: (Arbitrary a, Eq a) => (Value -> Parser a) -> (a -> Value) -> a -> Bool
 toParseJSON parsejson tojson x =
     case parse parsejson . tojson $ x of
-      Error _ -> False
+      Error _ _  -> False
       Success x' -> x == x'
 
 roundTrip :: (FromJSON a, ToJSON a) => (a -> a -> Bool) -> a -> a -> Bool
@@ -72,7 +72,7 @@ roundTripEq x y = roundTrip (==) x y
 
 toFromJSON :: (Arbitrary a, Eq a, FromJSON a, ToJSON a) => a -> Bool
 toFromJSON x = case fromJSON . toJSON $ x of
-                Error _ -> False
+                Error _ _  -> False
                 Success x' -> x == x'
 
 zonedTimeToJSON :: ZonedTime -> Bool
@@ -102,7 +102,7 @@ zonedTimeToJSON t = and $
 
     toFromJSON' :: String -> ZonedTime -> ZonedTime -> Bool
     toFromJSON' format t_ t_' = case fromJSON . toJSON' format $ t_ of
-                                  Error msg -> error' msg
+                                  Error _ msg  -> error' msg
                                   Success t_'' -> if t_'' == t_' then True else error' (show t_'')
       where
         error' :: String -> Bool
@@ -142,7 +142,7 @@ clearSeconds = f
 
 modifyFailureProp :: String -> String -> Bool
 modifyFailureProp orig added =
-    result == Error (added ++ orig)
+    result == Error [] (added ++ orig)
   where
     parser = const $ modifyFailure (added ++) $ fail orig
     result :: Result ()

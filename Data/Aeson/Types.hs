@@ -33,6 +33,8 @@ module Data.Aeson.Types
     , parseMaybe
     , ToJSON(..)
     , modifyFailure
+    , JSONPath
+    , formatError
 
 #ifdef GENERICS
     -- ** Generic JSON classes

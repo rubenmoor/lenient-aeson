@@ -25,7 +25,7 @@ genericFrom _ v = G.fromJSON (toJSON v) == Success v
 
 genericToFromJSON :: (Arbitrary a, Eq a, Data a) => a -> Bool
 genericToFromJSON x = case G.fromJSON . G.toJSON $ x of
-                Error _ -> False
+                Error _ _  -> False
                 Success x' -> x == x'
 
 regress_gh72 :: [(String, Maybe String)] -> Bool
