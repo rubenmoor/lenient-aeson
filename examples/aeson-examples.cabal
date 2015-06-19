@@ -7,7 +7,7 @@ executable aeson-example-generic
   main-is: Generic.hs
   ghc-options: -Wall
   build-depends:
-    aeson >= 0.10,
+    aeson == 0.9.*,
     base,
     bytestring,
     ghc-prim
