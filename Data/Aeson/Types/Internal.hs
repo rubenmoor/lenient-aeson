@@ -67,10 +67,10 @@ import qualified Data.HashMap.Strict as H
 import qualified Data.Vector as V
 
 -- | Elements of JSON path used to describe error location
-data JSONPathElement = -- ^ "object.key" JSON path element
+data JSONPathElement = -- ^ \"object.key\" JSON path element
                        Key Text
-                       -- ^ "array[index]" JSON path element
-                     | Index {-# UNPACK #-} !Int 
+                       -- ^ \"array[index]\" JSON path element
+                     | Index {-# UNPACK #-} !Int
                        deriving (Eq, Show, Typeable)
 type JSONPath = [JSONPathElement]
 
