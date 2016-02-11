@@ -10,4 +10,4 @@ benchmarks/AesonEncode
 
 tests/qc
 
-cabal.sandbox.config
+.stack-work

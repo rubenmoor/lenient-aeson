@@ -1,4 +1,4 @@
-name:            aeson
+name:            lenient-aeson
 version:         0.11.0.0
 license:         BSD3
 license-file:    LICENSE
@@ -170,7 +170,3 @@ test-suite tests
 source-repository head
   type:     git
   location: git://github.com/bos/aeson.git
-
-source-repository head
-  type:     mercurial
-  location: https://bitbucket.org/bos/aeson
