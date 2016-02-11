@@ -69,6 +69,7 @@ import GHC.Word (Word8(W8#))
 
 #define BACKSLASH 92
 #define CLOSE_CURLY 125
+#define FCLOSE_CURLY 125
 #define CLOSE_SQUARE 93
 #define COMMA 44
 #define DOUBLE_QUOTE 34
@@ -134,7 +135,11 @@ objectValues str val = do
     let !m = H.insert k v m0
     ch <- A.satisfy $ \w -> w == COMMA || w == CLOSE_CURLY
     if ch == COMMA
-      then skipSpace >> loop m
+      then do skipSpace
+              ch2 <- A.peekWord8'
+              if ch2 == CLOSE_CURLY
+                 then return m
+                 else loop m
       else return m
 {-# INLINE objectValues #-}
 
@@ -158,7 +163,11 @@ arrayValues val = do
       v <- val <* skipSpace
       ch <- A.satisfy $ \w -> w == COMMA || w == CLOSE_SQUARE
       if ch == COMMA
-        then skipSpace >> loop (v:acc)
+        then do skipSpace
+                ch2 <- A.peekWord8'
+                if ch2 == CLOSE_SQUARE
+                  then return (Vector.reverse (Vector.fromList (v:acc)))
+                  else loop (v:acc)
         else return (Vector.reverse (Vector.fromList (v:acc)))
 {-# INLINE arrayValues #-}
 
