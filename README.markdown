@@ -11,4 +11,4 @@ and
 
 Used for [json-cleaner](https://github.com/rubenmoor/json-cleaner), a command-line tool that removes trailing commas.
 
-Forked from (bos/aeson)[https://github.com/bos/aeson]
+Forked from [bos/aeson](https://github.com/bos/aeson)
